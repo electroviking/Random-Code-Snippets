@@ -1,0 +1,62 @@
+# Time:  O(n)
+# Space: O(n)
+#
+# Given a binary tree, return the level order traversal of its nodes' values.
+# (ie, from left to right, level by level).
+#
+# For example:
+# Given binary tree {3,9,20,#,#,15,7},
+#    3
+#   / \
+#  9  20
+#    /  \
+#   15   7
+# return its level order traversal as:
+# [
+#   [3],
+#   [9,20],
+#   [15,7]
+# ]
+#
+# Definition for a  binary tree node
+class TreeNode:
+    def __init__(self, x):
+        self.val = x
+        self.left = None
+        self.right = None
+
+
+def levelOrder(root):
+    if root is None:
+        return []
+    result = []
+    current = [root]
+
+    while current:
+        next_level = []
+        vals = []
+        for node in current:
+            # print node.val
+            vals.append(node.val)
+            if node.left:
+                next_level.append(node.left)
+            if node.right:
+                next_level.append(node.right)
+        current = next_level
+        result.append(vals)
+
+    return result
+
+
+if __name__ == "__main__":
+    root = TreeNode(3)
+    root.left = TreeNode(8)
+    root.left.left = TreeNode(5)
+    root.left.right = TreeNode(3)
+    root.left.right.left = TreeNode(10)
+    root.left.right.right = TreeNode(14)
+    root.right = TreeNode(22)
+    root.right.left = TreeNode(4)
+    root.right.right = TreeNode(25)
+    result = levelOrder(root)
+    print result
